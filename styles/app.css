@@ -1,10 +1,11 @@
 .card {
   float: left;
-  border: solid 1px black;
-  width: 100px;
-  border-radius: 5px;
-  height: 140px;
   margin-right: 20px;
+}
+
+.card img {
+  width: auto;
+  height: auto;
 }
 
 .covered {
