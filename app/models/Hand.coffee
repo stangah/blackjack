@@ -4,7 +4,12 @@ class window.Hand extends Backbone.Collection
 
   initialize: (array, @deck, @isDealer) ->
 
-  hit: -> @add(@deck.pop()).last()
+  hit: ->
+    @add(@deck.pop()).last()
+    if @scores()[0] > 21 then @trigger 'bust', @
+
+  stand: ->
+    @trigger 'stand', @
 
   scores: ->
     # The scores are an array of potential scores.
@@ -17,3 +22,14 @@ class window.Hand extends Backbone.Collection
       score + if card.get 'revealed' then card.get 'value' else 0
     , 0
     if hasAce then [score, score + 10] else [score]
+
+  bestScore: ->
+    scores = @scores()
+    if scores[0] > 21
+      return scores[0]
+    else if scores[1]? and scores[1] <= 21
+      return scores[1]
+    else
+      return scores[0]
+
+
