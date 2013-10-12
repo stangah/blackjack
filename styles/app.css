@@ -27,7 +27,7 @@ body {
 }
 
 button {
-  border:2px solid #CCC;
+  border:2px solid #AAA;
   background-color: transparent;
   color:#CCC;
   font-size: 24px;
@@ -40,7 +40,7 @@ button {
   border-radius: 3px;
 }
 
-button:hover {
+button.clickable:hover {
   border-color:white;
   color:white;
 }

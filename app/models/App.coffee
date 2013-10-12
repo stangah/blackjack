@@ -2,9 +2,13 @@
 class window.App extends Backbone.Model
 
   initialize: ->
-    @set 'deck', deck = new Deck()
-    @set 'playerHand', deck.dealPlayer()
-    @set 'dealerHand', deck.dealDealer()
+    @set 'deck', new Deck()
+    @initializeGame()
+
+  initializeGame: () ->
+    @set 'playerHand', @get("deck").dealPlayer()
+    @set 'dealerHand', @get("deck").dealDealer()
+    @set 'playerActive', true
     @get('playerHand').on(
       bust: (hand) =>
         @endGame(true)
@@ -21,8 +25,10 @@ class window.App extends Backbone.Model
     )
 
   endGame: (dealerWins) ->
-    console.log("Dealer wins? #{dealerWins}")
+    @set 'playerActive', false
     setTimeout( =>
-      @initialize()
+      if @get("deck").length < 11
+        @set "deck", new Deck()
+      @initializeGame()
       @trigger('newGame')
     , 3000)
