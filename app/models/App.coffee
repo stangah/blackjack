@@ -4,6 +4,7 @@ class window.App extends Backbone.Model
   initialize: ->
     @set 'deck', new Deck()
     @initializeGame()
+    @set 'chips', 150
 
   initializeGame: () ->
     @set 'playerHand', @get("deck").dealPlayer()
@@ -31,8 +32,10 @@ class window.App extends Backbone.Model
 
   evalScores: ->
     if (@get('playerHand').bestScore() > @get('dealerHand').bestScore()) or @get('dealerHand').bestScore() > 21
+      @set 'chips', (@get 'chips')
       @endGame(false)
     else
+      @set 'chips', (@get 'chips')
       @endGame(true)
 
   endGame: (dealerWins) ->

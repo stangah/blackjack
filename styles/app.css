@@ -1,5 +1,16 @@
-body {
-  background-image: url('../img/greenbg.png');
+.taskbar {
+  position: absolute;
+  top: 748px;
+  left:0;
+}
+
+.container {
+  width: 1024px;
+  height: 768px;
+  background-image: url('../img/felt.png');
+  position:absolute;
+  left:0;
+  top:0;
 }
 
 .card {
@@ -10,7 +21,7 @@ body {
 
 .hand-container {
   position: absolute;
-  left:180px;
+  left:280px;
 }
 
 .player-hand-container {
@@ -23,7 +34,14 @@ body {
 
 .deckCard {
   position: absolute;
-  left: 650px;
+  left: 750px;
+}
+
+.chip {
+  position: absolute;
+  left: 135px;
+  height:25px;
+  width:40px;
 }
 
 button {
@@ -32,7 +50,7 @@ button {
   color:#CCC;
   font-size: 24px;
   top: 500px;
-  left: 150px;
+  left: 250px;
   position:relative;
   margin: 0px 50px;
   cursor: pointer;
