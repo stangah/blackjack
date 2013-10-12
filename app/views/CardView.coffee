@@ -17,7 +17,7 @@ class window.CardView extends Backbone.View
 
     setTimeout( =>
       @$el.animate({"left": 0, "top":0}, =>
-        @model.trigger('finishedAdding'))
+        @model.trigger('updateScore'))
     , index*200 + 400*(not not params.isDealer))
 
   render: ->
@@ -30,4 +30,5 @@ class window.CardView extends Backbone.View
     @$el.animate({ width: 0, height: height, "margin-left": width/2, "margin-right": marginright + width/2}, =>
       @render()
       @$el.animate({width: width, "margin-left": 0, "margin-right": marginright})
+      @model.trigger('updateScore')
     )

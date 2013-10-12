@@ -13,16 +13,27 @@ class window.App extends Backbone.Model
       bust: (hand) =>
         @endGame(true)
       stand: (hand) =>
-        dealer = @get('dealerHand')
-        dealer.at(0).flip()
-        while dealer.bestScore() < 17 and dealer.bestScore() > 0
-          dealer.hit()
-        console.log(dealer.bestScore())
-        if (hand.bestScore() > dealer.bestScore()) or dealer.bestScore() > 21
-          @endGame(false)
-        else
-          @endGame(true)
+        @get('dealerHand').at(0).flip()
+        setTimeout( =>
+          @dealDealer()
+        , 1000)
     )
+
+  dealDealer: ->
+    dealer = @get('dealerHand')
+    if (dealer.bestScore() < 17)
+      dealer.hit()
+      setTimeout( =>
+        @dealDealer()
+      , 1000)
+    else
+      @evalScores()
+
+  evalScores: ->
+    if (@get('playerHand').bestScore() > @get('dealerHand').bestScore()) or @get('dealerHand').bestScore() > 21
+      @endGame(false)
+    else
+      @endGame(true)
 
   endGame: (dealerWins) ->
     @set 'playerActive', false

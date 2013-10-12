@@ -8,7 +8,7 @@ class window.HandView extends Backbone.View
   initialize: ->
     @collection.on
       'add': (card) => @renderCard(card)
-      'finishedAdding': =>
+      'updateScore': =>
         @renderScore()
     @renderInit()
 
