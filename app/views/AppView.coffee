@@ -1,7 +1,8 @@
 class window.AppView extends Backbone.View
 
   template: _.template '
-    <button class="hit-button clickable">Hit</button> <button class="stand-button clickable">Stand</button> <input type="number" size="10" id="numberinput" name="mynumber" value="0" />
+    <button class="hit-button action">Hit</button> <button class="stand-button action">Stand</button>
+    <button class="bet-10 bet clickable">Bet 10</button> <button class="bet-20 bet clickable">Bet 20</button> <button class="bet-50 bet clickable">Bet 50</button>
     <div class="player-hand-container hand-container"></div>
     <div class="dealer-hand-container hand-container"></div>
   '
@@ -17,9 +18,13 @@ class window.AppView extends Backbone.View
     @model.on 'newGame', =>
       @render()
     @model.on 'change:playerActive', ->
-      $('button').toggleClass("clickable")
+      $('action').toggleClass("clickable")
 
   render: ->
+    console.log(@model.get "chips")
+    if @model.get("chips") < 50
+      clippy = $('.clippy')
+      clippy.animate({'bottom': 20}, 3000)
     @$el.children().detach()
     @$el.html @template()
     for i in [1..12]
@@ -28,8 +33,8 @@ class window.AppView extends Backbone.View
       @$el.append(deckCard)
     for j in [1..Math.floor(@model.get('chips')/5)]
       chip = $('<img class="chip" src="img/chip' + Math.floor(Math.random() * 3) + '.png">')
-      chip.css('top', 500-5*Math.floor((j+1)/2))
-      chip.css('margin-left', 60*(j%2) + (Math.random()*2-1))
+      chip.css('top', 500-5*Math.floor((j+1)/3) - (not not (j % 3 == 1))*20)
+      chip.css('margin-left', 30*(j%3) + (Math.random()*2-1))
       @$el.append(chip)
     @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el

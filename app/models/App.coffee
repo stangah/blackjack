@@ -4,7 +4,7 @@ class window.App extends Backbone.Model
   initialize: ->
     @set 'deck', new Deck()
     @initializeGame()
-    @set 'chips', 150
+    @set 'chips', 100
 
   initializeGame: () ->
     @set 'playerHand', @get("deck").dealPlayer()
@@ -12,6 +12,7 @@ class window.App extends Backbone.Model
     @set 'playerActive', true
     @get('playerHand').on(
       bust: (hand) =>
+        @set 'chips', (@get 'chips') - 50
         @endGame(true)
       stand: (hand) =>
         @get('dealerHand').at(0).flip()
@@ -32,10 +33,10 @@ class window.App extends Backbone.Model
 
   evalScores: ->
     if (@get('playerHand').bestScore() > @get('dealerHand').bestScore()) or @get('dealerHand').bestScore() > 21
-      @set 'chips', (@get 'chips')
+      @set 'chips', (@get 'chips') + 50
       @endGame(false)
     else
-      @set 'chips', (@get 'chips')
+      @set 'chips', (@get 'chips') - 50
       @endGame(true)
 
   endGame: (dealerWins) ->

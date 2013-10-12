@@ -2,12 +2,70 @@
   position: absolute;
   top: 748px;
   left:0;
+  width:1023px;
+}
+
+.windows {
+  width:1018px;
+  height:746px;
+  background-image: url('../img/felt.png');
+  position:absolute;
+  top:0;
+  left:0;
+  border: 2px solid rgb(191,191,191);
+  box-shadow: 1px 1px grey;
+}
+
+.clippy {
+  position: absolute;
+  right: 20px;
+  bottom: 1200px;
+  width:250px;
+  height: 200px;
+  background-image: url("../img/Clippy.gif");
+  background-repeat: no-repeat;
+  z-index:2;
+}
+
+.clippyText {
+  position: absolute;
+  font-size: 13px;
+  top: 7px;
+  left: 30px;
+}
+
+.bluebar {
+  background-color: #000080;
+  width: 1018px;
+  height: 18px;
+  position:absolute;
+  top:0;
+  left:0;
+}
+
+.windowTitle {
+  float:left;
+  color:white;
+  font-family: 'Geneva';
+  font-size: 12px;
+  margin:1px;
+}
+
+.jackIcon {
+  float:left;
+  height:16px;
+  width:auto;
+  margin: 1px;
+}
+
+.menubarButtons {
+  float:right;
+  margin-right: 2px;
 }
 
 .container {
-  width: 1024px;
+  width: 1020px;
   height: 768px;
-  background-image: url('../img/felt.png');
   position:absolute;
   left:0;
   top:0;
@@ -20,6 +78,8 @@
 }
 
 .hand-container {
+  font-family: "Geneva";
+  color: #CCC;
   position: absolute;
   left:280px;
 }
@@ -45,20 +105,39 @@
 }
 
 button {
-  border:2px solid #AAA;
   background-color: transparent;
-  color:#CCC;
   font-size: 24px;
-  top: 500px;
   left: 250px;
   position:relative;
-  margin: 0px 50px;
   cursor: pointer;
   outline: none;
   border-radius: 3px;
+  display:none;
+  top: 500px;
+}
+
+button.clickable {
+  display:inline;
+}
+
+button.action {
+  color:#AAA;
+  border:2px solid #AAA;
+  margin: 0px 50px;
+}
+
+button.bet {
+  color:#C55;
+  border:2px solid #C55;
+  margin: 0px 30px;
 }
 
 button.clickable:hover {
   border-color:white;
   color:white;
+}
+
+button.bet:hover {
+  border-color:#F88;
+  color:#F88;
 }
