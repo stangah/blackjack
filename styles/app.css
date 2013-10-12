@@ -1,17 +1,46 @@
+body {
+  background-image: url('../img/greenbg.png');
+}
+
 .card {
   float: left;
-  margin-right: 20px;
+  margin-right: 10px;
+  position: relative;
 }
 
-.card img {
-  width: auto;
-  height: auto;
+.hand-container {
+  position: absolute;
+  left:180px;
 }
 
-.covered {
-  background-color: black;
+.player-hand-container {
+  top:300px;
 }
 
-.hand {
-  overflow: auto;
+.dealer-hand-container {
+  top: 50px;
+}
+
+.deckCard {
+  position: absolute;
+  left: 650px;
+}
+
+button {
+  border:2px solid #CCC;
+  background-color: transparent;
+  color:#CCC;
+  font-size: 24px;
+  top: 500px;
+  left: 150px;
+  position:relative;
+  margin: 0px 50px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 3px;
+}
+
+button:hover {
+  border-color:white;
+  color:white;
 }
