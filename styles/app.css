@@ -112,32 +112,27 @@ button {
   cursor: pointer;
   outline: none;
   border-radius: 3px;
-  display:none;
   top: 500px;
 }
 
-button.clickable {
-  display:inline;
-}
-
-button.action {
+button{
   color:#AAA;
   border:2px solid #AAA;
   margin: 0px 50px;
 }
 
-button.bet {
+/*button.bet-button {
   color:#C55;
   border:2px solid #C55;
   margin: 0px 30px;
-}
+}*/
 
-button.clickable:hover {
+button:hover{
   border-color:white;
   color:white;
 }
 
-button.bet:hover {
+/*button.bet-button:hover {
   border-color:#F88;
   color:#F88;
-}
+}*/

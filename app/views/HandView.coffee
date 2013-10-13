@@ -8,8 +8,7 @@ class window.HandView extends Backbone.View
   initialize: ->
     @collection.on
       'add': (card) => @renderCard(card)
-      'updateScore': =>
-        @renderScore()
+      'updateScore': => @renderScore()
     @renderInit()
 
   renderInit: ->
@@ -22,5 +21,5 @@ class window.HandView extends Backbone.View
     @$el.append new CardView(model: card, isDealer: @collection.isDealer, index: @collection.indexOf(card)).render()
 
   renderScore: ->
-    @$('.score').text("(#{@collection.bestScore()})")
+    @$('.score').text("(#{@collection.score()})")
 

@@ -3,18 +3,25 @@ class window.App extends Backbone.Model
 
   initialize: ->
     @set 'deck', new Deck()
-    @initializeGame()
     @set 'chips', 100
+    @set 'mode', 'betting'
 
-  initializeGame: () ->
+  bet: (bet) ->
     @set 'playerHand', @get("deck").dealPlayer()
     @set 'dealerHand', @get("deck").dealDealer()
-    @set 'playerActive', true
+    @set 'mode', 'playing'
+    @set 'currentBet', bet
+    @initializeGame()
+
+  initializeGame: () ->
+    @set 'mode', 'playing'
+    @trigger('newGame')
     @get('playerHand').on(
-      bust: (hand) =>
-        @set 'chips', (@get 'chips') - 50
+      bust: () =>
+        @set 'mode', 'waiting'
         @endGame(true)
-      stand: (hand) =>
+      stand: () =>
+        @set 'mode', 'waiting'
         @get('dealerHand').at(0).flip()
         setTimeout( =>
           @dealDealer()
@@ -23,7 +30,7 @@ class window.App extends Backbone.Model
 
   dealDealer: ->
     dealer = @get('dealerHand')
-    if (dealer.bestScore() < 17)
+    if (dealer.score() < 17)
       dealer.hit()
       setTimeout( =>
         @dealDealer()
@@ -32,18 +39,18 @@ class window.App extends Backbone.Model
       @evalScores()
 
   evalScores: ->
-    if (@get('playerHand').bestScore() > @get('dealerHand').bestScore()) or @get('dealerHand').bestScore() > 21
-      @set 'chips', (@get 'chips') + 50
+    if (@get('playerHand').score() > @get('dealerHand').score()) or @get('dealerHand').score() > 21
       @endGame(false)
     else
-      @set 'chips', (@get 'chips') - 50
       @endGame(true)
 
   endGame: (dealerWins) ->
-    @set 'playerActive', false
+    @set('chips', @get('chips') - (dealerWins*2 - 1) * @get('currentBet'))
     setTimeout( =>
       if @get("deck").length < 11
         @set "deck", new Deck()
-      @initializeGame()
-      @trigger('newGame')
-    , 3000)
+      if @get('chips') > 0
+        @set 'mode', 'betting'
+      else
+        @set 'mode', 'gameOver'
+    , 2500)
